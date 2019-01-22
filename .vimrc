@@ -19,7 +19,7 @@ syntax enable       " enable syntax processing
 
 " Spaces & Tabs
 set tabstop=4       " number of visual spaces per TAB
-set softtabstop=0   " number of spaces in tab when editing
+set softtabstop=4   " number of spaces in tab when editing
 set shiftwidth=4
 set expandtab       " tabs are spaces
 set smarttab
@@ -68,7 +68,7 @@ nnoremap gV `[v`]
 " save session
 nnoremap <leader>s :mksession<CR>
 " toggle nerdtree
-nnoremap <leader>t :NERDTree<CR>
+nnoremap <leader>t :NERDTreeToggle<CR>
 " toggle gundo
 nnoremap <leader>u :GundoToggle<CR>
 
