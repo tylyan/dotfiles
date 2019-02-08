@@ -46,6 +46,10 @@ set foldmethod=indent   "fold based on indent level
 " Mappings
 let mapleader=","
 
+" lazy command mode
+nnoremap ; :
+nnoremap : ;
+
 " exit insert mode
 imap jk <Esc>
 
@@ -54,8 +58,8 @@ nnoremap <leader><space> :nohlsearch<CR>
 
 " space open/closes folds
 nnoremap <space> za
-" Movement
 
+" Movement
 " move vertically by visual line
 nnoremap j gj
 nnoremap k gk
