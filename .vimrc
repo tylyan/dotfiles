@@ -78,3 +78,5 @@ nnoremap <leader>u :GundoToggle<CR>
 
 nnoremap <leader>l :Limelight!!<CR>
 nnoremap <leader>g :Goyo<CR>
+
+" adding a comment
