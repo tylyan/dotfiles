@@ -8,13 +8,16 @@ endif
 " VimPlugs
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
-Plug 'junegunn/seoul256.vim'
+Plug 'sjl/badwolf'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
+Plug 'lifepillar/vim-solarized8'
 call plug#end()
 
 " Color
-colorscheme seoul256 " colorscheme
+set termguicolors
+set background=dark
+colorscheme solarized8 " colorscheme
 syntax enable       " enable syntax processing
 
 " Spaces & Tabs
@@ -42,6 +45,13 @@ set foldenable      " enable folding
 set foldlevelstart=10   " open most folds by default
 set foldnestmax=10  " 10 nested fold max
 set foldmethod=indent   "fold based on indent level
+
+" Persistent Undo
+set undofile
+set undodir=~/.vim/undodir
+
+" Set Hidden Buffer
+set hidden
 
 " Mappings
 let mapleader=","
