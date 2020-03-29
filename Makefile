@@ -1,17 +1,19 @@
+TOOLS=shell zsh tmux vim
+
 all: install
 
 .ONESHELL:
 SHELL = /bin/bash
 install:
-	@for f in *
+	@for f in ${TOOLS}
 	@do
-	@	[[ "$$f" != "Makefile" ]] && stow -v $$f
+	@stow -v $$f
 	@done
 
 .ONESHELL:
 SHELL = /bin/bash
 clean:
-	@for f in *
+	@for f in ${TOOLS}
 	@do
-	@	[[ "$$f" != "Makefile" ]] && stow -vD $$f
+	@stow -vD $$f
 	@done
