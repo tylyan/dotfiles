@@ -37,6 +37,8 @@ omz_install() {
 install_config() {
     echo "installing config files..."
     # TODO: install config files using stow
+    # tmux plugin manager
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
     configs=(shell zsh vim tmux)
     echo "done."
