@@ -8,17 +8,17 @@ endif
 " VimPlugs
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
-Plug 'sjl/badwolf'
+Plug 'dracula/vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-Plug 'lifepillar/vim-solarized8'
 call plug#end()
 
 " Color
 set termguicolors
 set background=dark
-colorscheme solarized8 " colorscheme
+colorscheme dracula " colorscheme
 syntax enable       " enable syntax processing
+let &t_ut=''
 
 " Spaces & Tabs
 set tabstop=4       " number of visual spaces per TAB
@@ -79,12 +79,7 @@ vnoremap k gk
 " highlight last inserted text
 nnoremap gV `[v`]
 
-" save session
-nnoremap <leader>s :mksession<CR>
-" toggle nerdtree
+" toggle plugins
 nnoremap <leader>t :NERDTreeToggle<CR>
-" toggle gundo
-nnoremap <leader>u :GundoToggle<CR>
-
 nnoremap <leader>l :Limelight!!<CR>
 nnoremap <leader>g :Goyo<CR>
