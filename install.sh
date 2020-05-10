@@ -21,7 +21,7 @@ brew_install() {
     brew tap homebrew/cask-fonts
 
     formulae=(vim tmux zsh antigen stow)
-    casks=(kitty alfred rectangle hyperswitch hammerspoon font-Hack)
+    casks=(kitty firefox alfred rectangle hyperswitch hammerspoon font-Hack)
 
     brew install ${formulae[@]}
     brew cask install ${casks[@]}
@@ -48,7 +48,7 @@ install() {
     echo "install start..."
     check_dependencies
     brew_install
-    omz_intall
+    omz_install
     echo "install done."
     exit 0
 }
