@@ -20,8 +20,8 @@ brew_install() {
 
     brew tap homebrew/cask-fonts
 
-    formulae=(vim tmux zsh antigen stow)
-    casks=(kitty firefox alfred rectangle hyperswitch hammerspoon font-Hack)
+    formulae=(nvim tmux zsh antigen stow)
+    casks=(kitty firefox alfred rectangle hyperswitch karabiner-elements font-Hack)
 
     brew install ${formulae[@]}
     brew cask install ${casks[@]}
@@ -39,6 +39,10 @@ install_config() {
     # TODO: install config files using stow
     # tmux plugin manager
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+    # install vimplug for neovim
+    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
     configs=(shell zsh vim tmux)
     echo "done."

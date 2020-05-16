@@ -1,0 +1,1 @@
+bindkey '^l' autosuggest-accept
