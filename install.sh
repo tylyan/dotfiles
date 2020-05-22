@@ -21,7 +21,7 @@ brew_install() {
     brew tap homebrew/cask-fonts
 
     formulae=(nvim tmux zsh antigen stow)
-    casks=(kitty firefox alfred rectangle hyperswitch karabiner-elements font-Hack)
+    casks=(kitty firefox alfred rectangle hyperswitch karabiner-elements font-Hack notion)
 
     brew install ${formulae[@]}
     brew cask install ${casks[@]}
