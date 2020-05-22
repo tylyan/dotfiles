@@ -6,6 +6,8 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'lervag/vimtex'
+Plug 'vimwiki/vimwiki'
 call plug#end()
 
 " Color
@@ -42,8 +44,8 @@ set foldnestmax=10  " 10 nested fold max
 set foldmethod=indent   "fold based on indent level
 
 " Persistent Undo
-"set undofile
-"set undodir=stdpath('data') . '/undodir'
+set undofile
+set undodir=~/.vim/undodir
 
 " Set Hidden Buffer
 set hidden
@@ -89,3 +91,17 @@ inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
+
+" vimwiki
+let wiki_hci = {}
+let wiki_hci.path = '~/vimwiki/hci'
+let wiki_hci.path_html = '~/vimwiki/hci_html'
+
+let g:vimwiki_list = [wiki_hci]
+
+let g:vimtex_quickfix_latexlog = {'default': 0}
+
+augroup VimtexTest
+  autocmd!
+  autocmd FileType tex :VimtexCompile
+augroup end

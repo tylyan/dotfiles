@@ -44,7 +44,13 @@ install_config() {
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-    configs=(shell zsh vim tmux)
+    rm $HOME/.tmux.conf $HOME/.zshrc
+
+    configs=(.config shell zsh tmux)
+    for config in ${configs[@]}; do
+        stow $config
+    done
+
     echo "done."
 }
 
@@ -53,6 +59,7 @@ install() {
     check_dependencies
     brew_install
     omz_install
+    install_config
     echo "install done."
     exit 0
 }
