@@ -20,7 +20,7 @@ brew_install() {
 
     brew tap homebrew/cask-fonts
 
-    formulae=(nvim tmux zsh antigen stow)
+    formulae=(nvim tmux zsh antigen stow node python)
     casks=(kitty firefox alfred rectangle hyperswitch karabiner-elements font-Hack notion)
 
     brew install ${formulae[@]}
@@ -31,12 +31,12 @@ brew_install() {
 omz_install() {
     echo "installing oh-my-zsh..."
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    chmod -R 744 /usr/local/bin/zsh
     echo "done."
 }
 
 install_config() {
     echo "installing config files..."
-    # TODO: install config files using stow
     # tmux plugin manager
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
@@ -44,12 +44,15 @@ install_config() {
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-    rm $HOME/.tmux.conf $HOME/.zshrc
+    rm $HOME/.zshrc
 
-    configs=(.config shell zsh tmux)
-    for config in ${configs[@]}; do
-        stow $config
+    # TODO: probably move everything that belongs in $HOME into 'home' and just stow the entire folder
+    configs=(config shell zsh tmux)
+    for cfg in ${configs[@]}; do
+        stow $cfg
     done
+
+    # TODO: move extra config files like zsh/autosuggestion-settings.zsh to where the belong
 
     echo "done."
 }
