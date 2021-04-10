@@ -1,7 +1,7 @@
 " VimPlugs
 call plug#begin(stdpath('data') . '/plugged')
 Plug 'dracula/vim'
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'scrooloose/nerdtree'
 
 " Experimental
 Plug 'junegunn/vim-peekaboo'
