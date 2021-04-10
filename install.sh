@@ -47,7 +47,7 @@ install_config() {
     rm $HOME/.zshrc
 
     # TODO: probably move everything that belongs in $HOME into 'home' and just stow the entire folder
-    configs=(config shell zsh tmux)
+    configs=(config zsh tmux)
     for cfg in ${configs[@]}; do
         stow $cfg
     done

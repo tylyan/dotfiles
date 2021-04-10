@@ -1,4 +1,0 @@
-export EDITOR="nvim"
-export VIMRC="$HOME/.config/nvim/init.vim"
-
-[[ -r ~/.alias ]] && source ~/.alias

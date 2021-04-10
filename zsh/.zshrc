@@ -13,6 +13,8 @@ antigen theme agnoster
 antigen apply
 
 # Env
+export EDITOR="nvim"
+export VIMRC="$HOME/.config/nvim/init.vim"
 export ZSH="$HOME/.oh-my-zsh"
 
 # Path
@@ -23,9 +25,9 @@ path=(
     $path
 )
 
-
 # Bindings
 # vi mode
+set -o vi
 bindkey -v
 
 # navigate tab-completion using vim keys
@@ -37,10 +39,21 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 # reverse shell search
 bindkey '^R' history-incremental-search-backward
 
-# Load other
+# Oh My Zsh
 source $ZSH/oh-my-zsh.sh
-source ~/.shellrc
-source ~/.alias.zshrc
+
+# Aliases
+alias cp='cp -iv'
+alias l='ls -FGlAhp'
+alias less='less -FSRXc'
+alias ll='ls -FGlAhp'
+alias mkdir='mkdir -pv'
+alias mv='mv -iv'
+alias omz='vim $HOME/.oh-my-zsh'
+alias path='echo -e ${PATH//:/\\n}'
+alias vim='nvim'
+alias zconf='vim $HOME/.zshrc'
+cd() { builtin cd "$@"; ll; }
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
