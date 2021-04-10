@@ -1,51 +1,46 @@
 " VimPlugs
 call plug#begin(stdpath('data') . '/plugged')
-Plug 'scrooloose/nerdtree'
 Plug 'dracula/vim'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 
+" Experimental
+Plug 'junegunn/vim-peekaboo'
+Plug 'tpope/vim-sensible'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'lervag/vimtex'
 Plug 'vimwiki/vimwiki'
 call plug#end()
 
 " Color
-set termguicolors
-set background=dark
-colorscheme dracula " colorscheme
-syntax enable       " enable syntax processing
+colorscheme dracula
 let &t_ut=''
+set background=dark
+set termguicolors
+syntax enable
 
 " Spaces & Tabs
-set tabstop=4       " number of visual spaces per TAB
-set softtabstop=4   " number of spaces in tab when editing
-set shiftwidth=4
 set expandtab       " tabs are spaces
-set smarttab
+set shiftwidth=4
+set softtabstop=4   " number of spaces in tab when editing
+set tabstop=4       " number of visual spaces per TAB
 
 " UI Config
-set number          " show line numbers
-set showcmd         " show command in bottom bar
-set cursorline      " highlight current line
 filetype indent on  " load filetype-specific indent files
-set wildmenu        " visual autocomplete for command menu        
+set cursorline      " highlight current line
 set lazyredraw      " redraw only when we need to
+set number
+set relativenumber
+set showcmd         " show command in bottom bar
 set showmatch       " highlight matching [{()}]
 
-" Searching
-set incsearch       " search as characters are entered
-set hlsearch        " highlight matches
-
 " Folding
-set foldenable      " enable folding
+set foldenable          " enable folding
 set foldlevelstart=10   " open most folds by default
-set foldnestmax=10  " 10 nested fold max
-set foldmethod=indent   "fold based on indent level
+set foldmethod=indent   " fold based on indent level
+set foldnestmax=10      " 10 nested fold max
 
 " Persistent Undo
-set undofile
 set undodir=~/.vim/undodir
+set undofile
 
 " Set Hidden Buffer
 set hidden
@@ -66,7 +61,6 @@ nnoremap <leader><space> :nohlsearch<CR>
 " space open/closes folds
 nnoremap <space> za
 
-" Movement
 " move vertically by visual line
 nnoremap j gj
 nnoremap k gk
@@ -76,11 +70,10 @@ vnoremap k gk
 " highlight last inserted text
 nnoremap gV `[v`]
 
-" toggle plugins
+" Plugins
 nnoremap <leader>t :NERDTreeToggle<CR>
-nnoremap <leader>l :Limelight!!<CR>
-nnoremap <leader>g :Goyo<CR>
 
+" CoC
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -91,17 +84,3 @@ inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
-
-" vimwiki
-let wiki_hci = {}
-let wiki_hci.path = '~/vimwiki/hci'
-let wiki_hci.path_html = '~/vimwiki/hci_html'
-
-let g:vimwiki_list = [wiki_hci]
-
-let g:vimtex_quickfix_latexlog = {'default': 0}
-
-augroup VimtexTest
-  autocmd!
-  autocmd FileType tex :VimtexCompile
-augroup end
