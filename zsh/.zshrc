@@ -21,10 +21,34 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 # reverse shell search
 bindkey -v
 bindkey '^R' history-incremental-search-backward
+
+# history substring search
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
+
+bindkey '^ ' autosuggest-accept
+
+# Plugins
+source $ZPLUG_HOME/init.zsh
+zplug "plugins/git", from:oh-my-zsh
+zplug "mafredri/zsh-async", use:async.zsh, from:github, defer:0
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "zsh-users/zsh-history-substring-search", defer:3
+zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+zplug "junegunn/fzf", from:gh-r, as:command, rename-to:fzf, use:"*darwin*"
+zplug load
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf 'Install? [y/N]: '
+    if read -q; then
+        echo; zplug install
+    fi
+fi
 
 # Aliases
 alias cp='cp -iv'
@@ -39,28 +63,6 @@ alias tmux='TERM=xterm-256color tmux'
 alias vim='nvim'
 alias zconf='vim $HOME/.zshrc'
 cd() { builtin cd "$@"; ll; }
-
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Plugins
-source $ZPLUG_HOME/init.zsh
-zplug "plugins/git", from:oh-my-zsh
-zplug "mafredri/zsh-async", use:async.zsh, from:github, defer:0
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-autosuggestions"
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "zsh-users/zsh-history-substring-search", defer:3
-zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
-zplug load --verbose
-
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf 'Install? [y/N]: '
-    if read -q; then
-        echo; zplug install
-    fi
-fi
 
 autoload -Uz compinit && compinit
 kitty + complete setup zsh | source /dev/stdin

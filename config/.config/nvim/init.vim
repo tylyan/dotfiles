@@ -4,6 +4,7 @@ Plug 'dracula/vim'
 Plug 'scrooloose/nerdtree'
 
 " Experimental
+Plug 'junegunn/fzf'
 Plug 'junegunn/vim-peekaboo'
 Plug 'tpope/vim-sensible'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
