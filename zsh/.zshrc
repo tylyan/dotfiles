@@ -11,7 +11,7 @@ FZF_ALT_C_COMMAND="fd --type d --hidden --exclude .git"
     && { echo "Installing zplug..."; curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh }
 
 [[ ! -d $FZF_HOME ]] \
-    && { echo "Installing fzf..."; git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install }
+    && { echo "Installing fzf..."; git clone --depth 1 https://github.com/junegunn/fzf.git $FZF_HOME && $FZF_HOME/install }
 
 # Path
 typeset -U path
@@ -58,6 +58,7 @@ if ! zplug check --verbose; then
     fi
 fi
 
+# Activate fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Activate Nord directory colors
