@@ -35,8 +35,6 @@ bindkey -M menuselect "j" vi-down-line-or-history
 # history substring search
 bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
-bindkey -M vicmd "k" history-substring-search-up
-bindkey -M vicmd "j" history-substring-search-down
 
 bindkey "^ " autosuggest-accept
 
@@ -62,8 +60,15 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# Activate Nord directory colors
+# [MacOS] need to homebrew `coreutils` and use `gdircolors`: https://github.com/arcticicestudio/nord-dircolors/issues/7
+# Update to use `dircolors` on other systems
+test -r ~/.dir_colors && eval $(gdircolors ~/.dir_colors)
+
 # Aliases
 alias cp="cp -iv"
+# [MacOS] need to use GNU ls for gdircolors: https://github.com/arcticicestudio/nord-dircolors/issues/7
+alias ls="gls --color=always"
 alias l="ls -FGlAhp"
 alias less="less -FSRXc"
 alias ll="ls -FGlAhp"
@@ -71,7 +76,7 @@ alias mkdir="mkdir -pv"
 alias mv="mv -iv"
 alias omz="vim $HOME/.oh-my-zsh"
 alias path="echo -e ${PATH//:/\\n}"
-alias tmux="TERM=xterm-256color tmux"
+alias tmux="tmux -2"
 alias vim="nvim"
 alias zconf="vim $HOME/.zshrc"
 cd() { builtin cd "$@"; ll; }

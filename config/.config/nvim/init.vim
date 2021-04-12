@@ -9,10 +9,12 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'tpope/vim-sensible'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vimwiki/vimwiki'
+Plug 'arcticicestudio/nord-vim'
+Plug 'psliwka/vim-smoothie'
 call plug#end()
 
 " Color
-colorscheme dracula
+colorscheme nord
 let &t_ut=''
 set background=dark
 set termguicolors
