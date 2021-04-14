@@ -58,9 +58,6 @@ nnoremap : ;
 " exit insert mode
 imap jk <Esc>
 
-" turn off search highlight
-nnoremap <leader><space> :nohlsearch<CR>
-
 " space open/closes folds
 nnoremap <space> za
 
@@ -87,3 +84,20 @@ inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
+
+" Vimwiki
+let wiki_common_settings = {
+    \'links_space_char': '_',
+    \'auto_export': 1,
+    \'auto_tags': 1,
+    \'auto_diary_index': 1,
+    \'auto_generate_links': 1,
+    \'auto_generate_tags': 1,
+\}
+
+let main_wiki = extend(wiki_common_settings, {
+    \'name': 'Main',
+    \'path': '~/vimwiki/main',
+\})
+
+let g:vimwiki_list = [main_wiki]
