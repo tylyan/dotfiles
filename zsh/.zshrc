@@ -1,11 +1,12 @@
-EDITOR="nvim"
-VIMRC="$HOME/.config/nvim/init.vim"
-ZPLUG_HOME="$HOME/.zplug"
-ZSH_AUTOSUGGEST_USE_ASYNC=1
-FZF_HOME="$HOME/.fzf"
-FZF_DEFAULT_COMMAND="fd --type file --hidden --exclude .git"
-FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-FZF_ALT_C_COMMAND="fd --type d --hidden --exclude .git"
+export EDITOR="nvim"
+export VIMRC="$HOME/.config/nvim/init.vim"
+export ZPLUG_HOME="$HOME/.zplug"
+export ZSH_AUTOSUGGEST_USE_ASYNC=1
+export FZF_HOME="$HOME/.fzf"
+export FZF_DEFAULT_COMMAND="fd --type file --hidden --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type d --hidden --exclude .git"
+export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 
 [[ ! -d $ZPLUG_HOME ]] \
     && { echo "Installing zplug..."; curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh }
@@ -18,6 +19,7 @@ typeset -U path
 path=(
     $HOME/bin
     /usr/local/bin
+    /usr/local/opt/openjdk/bin
     $path
 )
 
@@ -41,6 +43,7 @@ bindkey "^ " autosuggest-accept
 # Plugins
 source $ZPLUG_HOME/init.zsh
 zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/history", from:oh-my-zsh
 zplug "mafredri/zsh-async", use:async.zsh, from:github, defer:0
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-autosuggestions"
