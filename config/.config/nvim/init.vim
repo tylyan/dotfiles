@@ -8,9 +8,10 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/vim-peekaboo'
 Plug 'tpope/vim-sensible'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki', {'branch': 'dev'}
 Plug 'arcticicestudio/nord-vim'
 Plug 'psliwka/vim-smoothie'
+Plug 'tpope/vim-surround'
 call plug#end()
 
 " Color
@@ -87,17 +88,23 @@ inoremap <silent><expr> <Tab>
 
 " Vimwiki
 let wiki_common_settings = {
+    \'syntax': 'markdown',
+    \'ext': '.md',
     \'links_space_char': '_',
-    \'auto_export': 1,
     \'auto_tags': 1,
     \'auto_diary_index': 1,
     \'auto_generate_links': 1,
     \'auto_generate_tags': 1,
+    \'diary_frequency': 'weekly',
+    \'diary_start_week_day': 'sunday',
 \}
 
-let main_wiki = extend(wiki_common_settings, {
-    \'name': 'Main',
-    \'path': '~/vimwiki/main',
+let main_wiki = extend(copy(wiki_common_settings), {
+    \'name': 'Notes',
+    \'path': '~/Nextcloud/Notes',
 \})
 
 let g:vimwiki_list = [main_wiki]
+
+" diary template
+au BufNewFile ~/Nextcloud/Notes/diary/*.md :silent 0r !~/.config/nvim/diary_template.py '%'
