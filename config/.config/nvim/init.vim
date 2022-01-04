@@ -100,11 +100,11 @@ let wiki_common_settings = {
 \}
 
 let main_wiki = extend(copy(wiki_common_settings), {
-    \'name': 'Notes',
-    \'path': '~/Nextcloud/Notes',
+    \'name': '2022 Journal',
+    \'path': '~/Nextcloud/Journal/2022',
 \})
 
 let g:vimwiki_list = [main_wiki]
 
 " diary template
-au BufNewFile ~/Nextcloud/Notes/diary/*.md :silent 0r !~/.config/nvim/diary_template.py '%'
+au BufNewFile ~/Nextcloud/Journal/2022/*.md :silent 0r !~/.config/nvim/diary_template.py '%'
