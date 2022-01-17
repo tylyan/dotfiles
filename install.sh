@@ -21,7 +21,7 @@ brew_install() {
     brew tap homebrew/cask-fonts
 
     formulae=(coreutils nvim tmux zsh stow node python)
-    casks=(kitty alfred rectangle karabiner-elements font-Hack visual-studio-code)
+    casks=(kitty alfred rectangle karabiner-elements font-Hack visual-studio-code todoist)
 
     brew install ${formulae[@]}
     brew install --cask ${casks[@]}
