@@ -9,6 +9,9 @@ vim.opt.mouse = 'a'
 vim.keymap.set('', '<ScrollWheelDown>', 'j')
 vim.keymap.set('', '<ScrollWheelUp>', 'k')
 
+-- Better clipboard
+vim.opt.clipboard = "unnamed"
+
 -- Spaces & Tabs
 vim.opt.expandtab = true       -- tabs are spaces
 vim.opt.shiftwidth = 2
@@ -52,8 +55,8 @@ vim.keymap.set('n', '<space>', 'za')
 -- highlight last inserted text
 vim.keymap.set('n', 'gV', '`[v`]')
 
--- better clipboard
-vim.opt.clipboard = "unnamed"
+-- switch to most recent buffer
+vim.keymap.set('n', '<leader>b', ':b#<CR>')
 
 -- Moving lines up or down: https://vim.fandom.com/wiki/Moving_lines_up_or_down
 vim.keymap.set('n', '<A-j>', ':m .+1<CR>==')
