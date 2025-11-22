@@ -16,12 +16,10 @@ check_dependencies() {
 
 brew_install() {
     echo "installing homebrew packages..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-    brew tap homebrew/cask-fonts
-
-    formulae=(coreutils nvim tmux zsh stow node python)
-    casks=(kitty alfred rectangle karabiner-elements font-Hack visual-studio-code todoist)
+    formulae=(coreutils nvim tmux zsh stow nvm uv)
+    casks=(alacritty raycast rectangle karabiner-elements font-hack-nerd-font visual-studio-code)
 
     brew install ${formulae[@]}
     brew install --cask ${casks[@]}
@@ -34,11 +32,6 @@ install_config() {
     # tmux plugin manager
     [[ ! -d ~/.tmux/plugins/tpm ]] \
         && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-    # install vimplug for neovim
-    [[ ! -d "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim ]] \
-        && sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
     rm -f $HOME/.zshrc
 
