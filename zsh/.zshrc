@@ -1,5 +1,7 @@
+# =============================================================================
+# Environment Variables
+# =============================================================================
 export EDITOR="nvim"
-export VIMRC="$HOME/.config/nvim/init.vim"
 export ZPLUG_HOME="$HOME/.zplug"
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
 export FZF_HOME="$HOME/.fzf"
@@ -7,23 +9,46 @@ export FZF_DEFAULT_COMMAND="fd --type file --hidden --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d --hidden --exclude .git"
 export CPPFLAGS="-I/usr/local/opt/openjdk/include"
+export NVM_DIR="$HOME/.nvm"
+export PNPM_HOME="/Users/tommy/Library/pnpm"
+export BUN_INSTALL="$HOME/.bun"
 
+# =============================================================================
+# Path Configuration
+# =============================================================================
+typeset -U path
+path=(
+    $HOME/bin
+    $BUN_INSTALL/bin
+    $PNPM_HOME
+    /usr/local/bin
+    /usr/local/opt/openjdk/bin
+    $path
+)
+
+# =============================================================================
+# Auto-installers
+# =============================================================================
 [[ ! -d $ZPLUG_HOME ]] \
     && { echo "Installing zplug..."; curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh }
 
 [[ ! -d $FZF_HOME ]] \
     && { echo "Installing fzf..."; git clone --depth 1 https://github.com/junegunn/fzf.git $FZF_HOME && $FZF_HOME/install }
 
-# Path
-typeset -U path
-path=(
-    $HOME/bin
-    /usr/local/bin
-    /usr/local/opt/openjdk/bin
-    $path
-)
+# =============================================================================
+# History Settings
+# =============================================================================
+HISTFILE=$HOME/.zhistory
+SAVEHIST=1000
+HISTSIZE=999
+setopt share_history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+setopt hist_verify
 
-# Bindings
+# =============================================================================
+# Keybindings
+# =============================================================================
 bindkey -v
 
 # navigate tab-completion using vim keys
@@ -40,7 +65,9 @@ bindkey "^[[B" history-substring-search-down
 
 bindkey "^ " autosuggest-accept
 
-# Plugins
+# =============================================================================
+# Plugins (zplug)
+# =============================================================================
 source $ZPLUG_HOME/init.zsh
 zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/history", from:oh-my-zsh
@@ -61,39 +88,69 @@ if ! zplug check --verbose; then
     fi
 fi
 
-# Activate fzf
+# =============================================================================
+# Tool Initializations
+# =============================================================================
+# fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Activate Nord directory colors
+# Nord directory colors
 # [MacOS] need to homebrew `coreutils` and use `gdircolors`: https://github.com/arcticicestudio/nord-dircolors/issues/7
-# Update to use `dircolors` on other systems
 test -r ~/.dir_colors && eval $(gdircolors ~/.dir_colors)
 
-# Nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# nvm (lazy loaded)
+nvm() {
+  unset -f nvm node npm npx
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+  nvm "$@"
+}
+node() { nvm use default; node "$@"; }
+npm() { nvm use default; npm "$@"; }
+npx() { nvm use default; npx "$@"; }
 
+# zoxide
+eval "$(zoxide init zsh)"
+
+# local env
+. "$HOME/.local/bin/env"
+
+# =============================================================================
 # Aliases
+# =============================================================================
+# File operations
 alias cp="cp -iv"
+alias mv="mv -iv"
+alias mkdir="mkdir -pv"
+
+# Directory listing
 # [MacOS] need to use GNU ls for gdircolors: https://github.com/arcticicestudio/nord-dircolors/issues/7
 alias ls="gls --color=always"
 alias l="ls -FGlAhp"
-alias less="less -FSRXc"
-# alias ll="ls -FGlAhp"
 alias ll="eza -alh"
-alias mkdir="mkdir -pv"
-alias mv="mv -iv"
-alias omz="vim $HOME/.oh-my-zsh"
-alias path="echo -e ${PATH//:/\\n}"
+
+# Navigation
+alias cd="z"
+
+# Tools
+alias less="less -FSRXc"
 alias tmux="tmux -2"
 alias vim="nvim"
+
+# Config shortcuts
+alias path="echo -e ${PATH//:/\\n}"
 alias zconf="vim $HOME/.zshrc"
+
+# Git
 alias g="git"
 alias gs="git status"
 alias gd="git diff"
+
+# Package managers
 alias y="yarn"
-# cd() { builtin cd "$@"; ll; }
+
+# =============================================================================
+# Functions
+# =============================================================================
 git() {
   if [[ "$1" == "diff" ]]; then
     command git diff --color=always "${@:2}" | less -r
@@ -104,29 +161,11 @@ git() {
   fi
 }
 
-# Zoxide
-eval "$(zoxide init zsh)"
-alias cd="z $@"
-
+# =============================================================================
+# Completions
+# =============================================================================
 autoload -Uz compinit && compinit
-kitty + complete setup zsh | source /dev/stdin
-
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /opt/homebrew/bin/terraform terraform
-
-# pnpm
-export PNPM_HOME="/Users/tommy/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-. "$HOME/.local/bin/env"
-
-# bun completions
-[ -s "/Users/tommy/.bun/_bun" ] && source "/Users/tommy/.bun/_bun"
 
 # bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+[ -s "/Users/tommy/.bun/_bun" ] && source "/Users/tommy/.bun/_bun"

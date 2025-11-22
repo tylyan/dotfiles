@@ -13,7 +13,7 @@ This installs Homebrew, essential tools, and symlinks all configs to `$HOME`.
 ## What's Included
 
 - **zsh**: vi-mode, zplug plugins, FZF integration
-- **neovim**: vim-plug, coc.nvim, vimwiki, nord theme
+- **neovim**: lazy.nvim, LSP with Mason, telescope, treesitter, nvim-tree
 - **tmux**: vi keybindings, TPM, custom prefix (C-a)
 - **karabiner**: caps lock → control/escape
 - **kitty**: terminal emulator config
@@ -30,4 +30,4 @@ stow tmux    # symlinks .tmux.conf to ~/.tmux.conf
 
 - zsh: `source ~/.zshrc`
 - tmux: `prefix + r`
-- nvim: `:source $MYVIMRC`
+- nvim: `:Lazy sync` (for plugin updates)
