@@ -1,12 +1,33 @@
 # dotfiles
 
-## tools
-* stow\*
-* tmux
-* vim
-* zsh
+Personal macOS configuration files managed with GNU Stow.
 
-## to-do
-* update vimrc
-* bash configs
-* write script to install brew and tools
+## Quick Start
+
+```bash
+./install.sh
+```
+
+This installs Homebrew, essential tools, and symlinks all configs to `$HOME`.
+
+## What's Included
+
+- **zsh**: vi-mode, zplug plugins, FZF integration
+- **neovim**: vim-plug, coc.nvim, vimwiki, nord theme
+- **tmux**: vi keybindings, TPM, custom prefix (C-a)
+- **karabiner**: caps lock → control/escape
+- **kitty**: terminal emulator config
+
+## Manual Installation
+
+```bash
+stow config  # symlinks .config/* to ~/.config/
+stow zsh     # symlinks .zshrc to ~/.zshrc
+stow tmux    # symlinks .tmux.conf to ~/.tmux.conf
+```
+
+## Reload Configs
+
+- zsh: `source ~/.zshrc`
+- tmux: `prefix + r`
+- nvim: `:source $MYVIMRC`

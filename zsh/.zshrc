@@ -69,13 +69,19 @@ fi
 # Update to use `dircolors` on other systems
 test -r ~/.dir_colors && eval $(gdircolors ~/.dir_colors)
 
+# Nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
 # Aliases
 alias cp="cp -iv"
 # [MacOS] need to use GNU ls for gdircolors: https://github.com/arcticicestudio/nord-dircolors/issues/7
 alias ls="gls --color=always"
 alias l="ls -FGlAhp"
 alias less="less -FSRXc"
-alias ll="ls -FGlAhp"
+# alias ll="ls -FGlAhp"
+alias ll="eza -alh"
 alias mkdir="mkdir -pv"
 alias mv="mv -iv"
 alias omz="vim $HOME/.oh-my-zsh"
@@ -83,7 +89,44 @@ alias path="echo -e ${PATH//:/\\n}"
 alias tmux="tmux -2"
 alias vim="nvim"
 alias zconf="vim $HOME/.zshrc"
-cd() { builtin cd "$@"; ll; }
+alias g="git"
+alias gs="git status"
+alias gd="git diff"
+alias y="yarn"
+# cd() { builtin cd "$@"; ll; }
+git() {
+  if [[ "$1" == "diff" ]]; then
+    command git diff --color=always "${@:2}" | less -r
+  elif [[ "$1" == "log" ]]; then
+    command git log --color=always "${@:2}" | less -r
+  else
+    command git "$@"
+  fi
+}
+
+# Zoxide
+eval "$(zoxide init zsh)"
+alias cd="z $@"
 
 autoload -Uz compinit && compinit
 kitty + complete setup zsh | source /dev/stdin
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
+# pnpm
+export PNPM_HOME="/Users/tommy/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+. "$HOME/.local/bin/env"
+
+# bun completions
+[ -s "/Users/tommy/.bun/_bun" ] && source "/Users/tommy/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

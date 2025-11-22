@@ -1,0 +1,13 @@
+# macOS system files
+.DS_Store
+
+# Ignore all configs by default
+config/.config/*
+
+# Allow-list specific configs we want to track
+!config/.config/karabiner/
+!config/.config/nvim/
+!config/.config/kitty/
+
+# Ignore auto-generated/backup files within allowed configs
+config/.config/karabiner/automatic_backups/
