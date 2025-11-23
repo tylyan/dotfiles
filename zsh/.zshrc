@@ -63,7 +63,7 @@ bindkey -M menuselect "j" vi-down-line-or-history
 bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
-bindkey "^ " autosuggest-accept
+bindkey "^l" autosuggest-accept
 
 # =============================================================================
 # Plugins (zplug)
