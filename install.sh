@@ -18,8 +18,12 @@ brew_install() {
     echo "installing homebrew packages..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+    # TODO: Make sure to add or get the installed `brew` binary to run the rest of the commands
+
     formulae=(coreutils nvim tmux zsh stow nvm uv)
     casks=(alacritty raycast rectangle karabiner-elements font-hack-nerd-font visual-studio-code)
+
+    nvm install --lts && nvm use --lts
 
     brew install ${formulae[@]}
     brew install --cask ${casks[@]}

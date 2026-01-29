@@ -1,9 +1,9 @@
 [general]
 import = [
     # "~/.config/alacritty/themes/nord.toml"
-    # "~/.config/alacritty/catppuccin-latte.toml"
-    # "~/.config/alacritty/catppuccin-frappe.toml"
-    "~/.config/alacritty/catppuccin-macchiato.toml"
+    # "~/.config/alacritty/themes/catppuccin-latte.toml"
+    # "~/.config/alacritty/themes/catppuccin-frappe.toml"
+    "~/.config/alacritty/themes/catppuccin-macchiato.toml"
     # "~/.config/alacritty/themes/catppuccin-mocha.toml"
 ]
 live_config_reload = true

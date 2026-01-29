@@ -94,10 +94,6 @@ fi
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Nord directory colors
-# [MacOS] need to homebrew `coreutils` and use `gdircolors`: https://github.com/arcticicestudio/nord-dircolors/issues/7
-test -r ~/.dir_colors && eval $(gdircolors ~/.dir_colors)
-
 # nvm (lazy loaded)
 nvm() {
   unset -f nvm node npm npx
@@ -169,3 +165,4 @@ autoload -U +X bashcompinit && bashcompinit
 
 # bun
 [ -s "/Users/tommy/.bun/_bun" ] && source "/Users/tommy/.bun/_bun"
+eval "$(mise activate zsh)"

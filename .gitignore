@@ -5,9 +5,11 @@
 config/.config/*
 
 # Allow-list specific configs we want to track
+!config/.config/alacritty/
 !config/.config/karabiner/
 !config/.config/nvim/
 !config/.config/kitty/
+!config/.config/tmux/scripts/
 
 # Ignore auto-generated/backup files within allowed configs
 config/.config/karabiner/automatic_backups/

@@ -13,25 +13,25 @@ vim.keymap.set('', '<ScrollWheelUp>', 'k')
 vim.opt.clipboard = "unnamed"
 
 -- Spaces & Tabs
-vim.opt.expandtab = true       -- tabs are spaces
+vim.opt.expandtab = true -- tabs are spaces
 vim.opt.shiftwidth = 2
-vim.opt.softtabstop = 2        -- number of spaces in tab when editing
-vim.opt.tabstop = 2            -- number of visual spaces per TAB
+vim.opt.softtabstop = 2  -- number of spaces in tab when editing
+vim.opt.tabstop = 2      -- number of visual spaces per TAB
 
 -- UI Config
-vim.cmd('filetype indent on')  -- load filetype-specific indent files
-vim.opt.cursorline = true      -- highlight current line
-vim.opt.lazyredraw = true      -- redraw only when we need to
+vim.cmd('filetype indent on') -- load filetype-specific indent files
+vim.opt.cursorline = true     -- highlight current line
+vim.opt.lazyredraw = true     -- redraw only when we need to
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.showcmd = true         -- show command in bottom bar
-vim.opt.showmatch = true       -- highlight matching [{()}]
+vim.opt.showcmd = true   -- show command in bottom bar
+vim.opt.showmatch = true -- highlight matching [{()}]
 
 -- Folding
-vim.opt.foldenable = true          -- enable folding
-vim.opt.foldlevelstart = 10        -- open most folds by default
-vim.opt.foldmethod = 'indent'      -- fold based on indent level
-vim.opt.foldnestmax = 10           -- 10 nested fold max
+vim.opt.foldenable = true     -- enable folding
+vim.opt.foldlevelstart = 10   -- open most folds by default
+vim.opt.foldmethod = 'indent' -- fold based on indent level
+vim.opt.foldnestmax = 10      -- 10 nested fold max
 
 -- Persistent Undo
 vim.opt.undodir = vim.fn.expand('~/.vim/undodir')
@@ -65,3 +65,29 @@ vim.keymap.set('i', '<A-j>', '<Esc>:m .+1<CR>==gi')
 vim.keymap.set('i', '<A-k>', '<Esc>:m .-2<CR>==gi')
 vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv")
+
+-- Autocommands
+vim.api.nvim_create_autocmd("FocusGained", {
+  desc = "Reload files from disk when we focus vim",
+  pattern = "*",
+  command = "if getcmdwintype() == '' | checktime | endif",
+  group = aug,
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  desc = "Every time we enter an unmodified buffer, check if it changed on disk",
+  pattern = "*",
+  command = "if &buftype == '' && !&modified && expand('%') != '' | exec 'checktime ' . expand('<abuf>') | endif",
+  group = aug,
+})
+
+require("aerial").setup({
+  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+  on_attach = function(bufnr)
+    -- Jump forwards/backwards with '{' and '}'
+    vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+    vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+  end,
+})
+-- You probably also want to set a keymap to toggle aerial
+vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
